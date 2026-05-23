@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BC WildWatch™ — Campus Animal Safety</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:    #0a1628;
+      --navy2:   #0f2040;
+      --teal:    #0d9e75;
+      --teal2:   #0bc68f;
+      --amber:   #f5a623;
+      --red:     #e05c4b;
+      --white:   #f8f6f1;
+      --muted:   rgba(248,246,241,0.55);
+      --border:  rgba(248,246,241,0.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- GRID BACKGROUND --- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(13,158,117,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,158,117,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(10,22,40,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--teal);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .nav-logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      font-weight: 400;
+    }
+
+    .nav-link:hover { color: var(--white); background: rgba(248,246,241,0.06); }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+      background: var(--teal);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+      margin-left: 8px;
+    }
+
+    .nav-cta:hover { background: var(--teal2); transform: translateY(-1px); }
+
+    /* --- HERO --- */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal2);
+      border: 1px solid rgba(13,158,117,0.3);
+      background: rgba(13,158,117,0.08);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 span { color: var(--teal2); }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--navy);
+      background: var(--teal);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      transition: background 0.2s, transform 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--white);
+      background: transparent;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(248,246,241,0.3);
+      background: rgba(248,246,241,0.05);
+      transform: translateY(-2px);
+    }
+
+    .btn-icon { font-size: 18px; }
+
+    /* --- STATS STRIP --- */
+    .stats-strip {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-item {
+      background: var(--navy2);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--teal2);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* --- SECTION --- */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 96px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal2);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    /* --- FEATURE CARDS --- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(13,158,117,0.3);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .icon-teal  { background: rgba(13,158,117,0.12); }
+    .icon-amber { background: rgba(245,166,35,0.12); }
+    .icon-red   { background: rgba(224,92,75,0.12); }
+    .icon-blue  { background: rgba(56,130,221,0.12); }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* --- APP LAUNCH SECTION --- */
+    .launch-section {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .launch-section::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(13,158,117,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .launch-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .launch-sub {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .launch-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn-large {
+      font-size: 16px;
+      padding: 16px 36px;
+      border-radius: 12px;
+    }
+
+    /* --- TOOL CARDS --- */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .tool-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(248,246,241,0.2);
+      transform: translateY(-2px);
+    }
+
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tool-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .tool-status {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 100px;
+      background: rgba(13,158,117,0.12);
+      color: var(--teal2);
+      border: 1px solid rgba(13,158,117,0.2);
+    }
+
+    .tool-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .tool-arrow {
+      font-size: 18px;
+      color: var(--muted);
+      align-self: flex-end;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .tool-card:hover .tool-arrow {
+      color: var(--teal2);
+      transform: translate(2px, -2px);
+    }
+
+    /* --- HOW IT WORKS --- */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 48px;
+      max-width: 640px;
+    }
+
+    .step-row {
+      display: flex;
+      gap: 24px;
+      position: relative;
+    }
+
+    .step-row:not(:last-child) .step-line {
+      position: absolute;
+      left: 15px;
+      top: 40px;
+      bottom: -16px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .step-num-circle {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--navy2);
+      border: 1px solid rgba(13,158,117,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal2);
+      flex-shrink: 0;
+      margin-top: 4px;
+      font-family: 'Syne', sans-serif;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-content { padding-bottom: 40px; }
+
+    .step-content h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      font-size: 12px;
+      color: rgba(248,246,241,0.3);
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- QR SECTION --- */
+    .qr-section {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px;
+      flex-wrap: wrap;
+    }
+
+    .qr-box {
+      width: 140px; height: 140px;
+      background: var(--white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .qr-placeholder {
+      display: grid;
+      grid-template-columns: repeat(7, 14px);
+      grid-template-rows: repeat(7, 14px);
+      gap: 2px;
+    }
+
+    .qr-cell {
+      border-radius: 2px;
+      background: var(--navy);
+      width: 14px; height: 14px;
+    }
+
+    .qr-cell.w { background: var(--white); }
+
+    .qr-text h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .qr-text p {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 380px;
+    }
+
+    /* --- ALERT BANNER --- */
+    .alert-banner {
+      position: relative;
+      z-index: 1;
+      background: rgba(245,166,35,0.08);
+      border-top: 1px solid rgba(245,166,35,0.2);
+      border-bottom: 1px solid rgba(245,166,35,0.2);
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(245,166,35,0.9);
+    }
+
+    .alert-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      nav .nav-links { display: none; }
+      section { padding: 64px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .launch-section { padding: 40px 24px; }
+      .qr-section { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">BW</div>
+      <span class="nav-logo-text">WildWatch™</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#how-it-works" class="nav-link">How it works</a>
+      <a href="#tools" class="nav-link">Tools</a>
+      <a href="#launch" class="nav-cta">Report a sighting →</a>
+    </div>
+  </nav>
+
+  <!-- ALERT BANNER -->
+  <div class="alert-banner">
+    <div class="alert-dot"></div>
+    <span>Live system — Belgium Campus. Sign in with your Microsoft 365 student account to report animal sightings.</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Belgium Campus · Live Deployment
+    </div>
+    <h1>Campus safety<br>starts with <span>one report</span></h1>
+    <p class="hero-sub">BC WildWatch™ is the real-time animal safety reporting system for Belgium Campus. Spot a hazard, report it instantly, keep everyone safe.</p>
+    <div class="hero-actions">
+      <a href="PASTE_POWERAPP_URL_HERE" target="_blank" rel="noopener" class="btn-primary btn-large">
+        <span class="btn-icon">🐍</span> Report a sighting
+      </a>
+      <a href="#how-it-works" class="btn-secondary btn-large">
+        How it works
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-number">M365</div>
+      <div class="stat-label">Secure student login</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">&lt;60s</div>
+      <div class="stat-label">Alert to security team</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">Live</div>
+      <div class="stat-label">Power BI dashboard</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">AI</div>
+      <div class="stat-label">Chatbot assistance</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="reveal">
+      <p class="section-eyebrow">Features</p>
+      <h2 class="section-title">Everything campus<br>safety needs</h2>
+      <p class="section-body">Built on Microsoft Power Platform with free-tier technologies. Secure, scalable, and accessible from any device on campus.</p>
+    </div>
+    <div class="feature-grid reveal">
+      <div class="feature-card">
+        <div class="feature-icon icon-teal">📍</div>
+        <div class="feature-title">GPS-tagged reports</div>
+        <div class="feature-desc">Every sighting is automatically tagged with location data so security can find the exact spot on campus.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-amber">⚡</div>
+        <div class="feature-title">Instant alerts</div>
+        <div class="feature-desc">Power Automate fires an email alert to campus security within seconds of any high-severity report being submitted.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-red">🤖</div>
+        <div class="feature-title">AI chatbot</div>
+        <div class="feature-desc">Not sure what you saw? The built-in chatbot helps identify animals and advises on the appropriate safety response.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-blue">📊</div>
+        <div class="feature-title">Live dashboard</div>
+        <div class="feature-desc">Power BI gives campus admins a real-time view of all sightings, hotspots, and incident trends across the campus.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-teal">🔒</div>
+        <div class="feature-title">Secure login</div>
+        <div class="feature-desc">Microsoft 365 A3 authentication ensures only verified Belgium Campus students and staff can access the system.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-amber">📷</div>
+        <div class="feature-title">Photo upload</div>
+        <div class="feature-desc">Attach a photo directly from your phone camera when submitting a report to help security assess the situation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" style="padding-top:0">
+    <div class="reveal">
+      <p class="section-eyebrow">How it works</p>
+      <h2 class="section-title">From sighting<br>to resolved</h2>
+      <p class="section-body">The entire process from spotting a hazardous animal to campus security being notified takes under 60 seconds.</p>
+    </div>
+    <div class="steps-list reveal">
+      <div class="step-row">
+        <div class="step-line"></div>
+        <div class="step-num-circle">1</div>
+        <div class="step-content">
+          <h4>Sign in with your M365 account</h4>
+          <p>Click "Report a sighting" and log in with your Belgium Campus Microsoft 365 student credentials. No separate account needed.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-line"></div>
+        <div class="step-num-circle">2</div>
+        <div class="step-content">
+          <h4>Fill in the report form</h4>
+          <p>Select the animal type, severity level, your location on campus, and optionally attach a photo. The form takes under a minute to complete.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-line"></div>
+        <div class="step-num-circle">3</div>
+        <div class="step-content">
+          <h4>Automatic alert fires</h4>
+          <p>If the severity is high, Power Automate immediately emails the campus security team with the full report details and location.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num-circle">4</div>
+        <div class="step-content">
+          <h4>Security responds</h4>
+          <p>Campus admin monitors all incidents on the live Power BI dashboard. Your report is logged, tracked, and resolved.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAUNCH CTA -->
+  <section id="launch" style="padding-top:0">
+    <div class="launch-section reveal">
+      <h2 class="launch-title">Ready to report a sighting?</h2>
+      <p class="launch-sub">Sign in with your Belgium Campus M365 account to get started.</p>
+      <div class="launch-buttons">
+        <a href="PASTE_POWERAPP_URL_HERE" target="_blank" rel="noopener" class="btn-primary btn-large">
+          Open the reporting app →
+        </a>
+        <a href="PASTE_POWERBI_URL_HERE" target="_blank" rel="noopener" class="btn-secondary btn-large">
+          View live dashboard
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools" style="padding-top:0">
+    <div class="reveal">
+      <p class="section-eyebrow">System tools</p>
+      <h2 class="section-title">All access points</h2>
+      <p class="section-body">Every component of BC WildWatch™ in one place. All require Microsoft 365 Belgium Campus login.</p>
+    </div>
+    <div class="tools-grid reveal">
+      <a href="PASTE_POWERAPP_URL_HERE" target="_blank" rel="noopener" class="tool-card">
+        <div class="tool-card-header">
+          <span class="tool-label">Power Apps</span>
+          <span class="tool-status">Live</span>
+        </div>
+        <div class="tool-name">Reporting App</div>
+        <div class="tool-desc">Submit animal sightings, upload photos, and tag your location on campus.</div>
+        <div class="tool-arrow">↗</div>
+      </a>
+      <a href="PASTE_POWERBI_URL_HERE" target="_blank" rel="noopener" class="tool-card">
+        <div class="tool-card-header">
+          <span class="tool-label">Power BI</span>
+          <span class="tool-status">Live</span>
+        </div>
+        <div class="tool-name">Admin Dashboard</div>
+        <div class="tool-desc">Live map and incident charts showing all campus animal sightings in real time.</div>
+        <div class="tool-arrow">↗</div>
+      </a>
+      <a href="PASTE_CHATBOT_URL_HERE" target="_blank" rel="noopener" class="tool-card">
+        <div class="tool-card-header">
+          <span class="tool-label">Copilot Studio</span>
+          <span class="tool-status">Live</span>
+        </div>
+        <div class="tool-name">Animal ID Chatbot</div>
+        <div class="tool-desc">Not sure what animal you saw? Get identification help and safety advice instantly.</div>
+        <div class="tool-arrow">↗</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- QR CODE SECTION -->
+  <section style="padding-top:0">
+    <div class="qr-section reveal">
+      <div class="qr-box">
+        <div style="text-align:center;color:var(--navy);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;padding:8px">
+          <div style="font-size:28px;margin-bottom:4px">QR</div>
+          Replace with<br>your QR code<br>image here
+        </div>
+      </div>
+      <div class="qr-text">
+        <h3>Scan to report instantly</h3>
+        <p>Generate your QR code at qr-code-monkey.com using your GitHub Pages URL, then replace the QR placeholder in this page with an &lt;img&gt; tag pointing to the downloaded PNG. Print it for notice boards, demonstration day, and your CV.</p>
+        <a href="https://www.qr-code-monkey.com" target="_blank" rel="noopener" class="btn-secondary" style="margin-top:20px;font-size:13px;padding:10px 20px">
+          Generate QR code →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">BC WildWatch™ — Belgium Campus</div>
+    <div class="footer-note">Built on Microsoft Power Platform · GitHub Pages · Microsoft 365 A3</div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
