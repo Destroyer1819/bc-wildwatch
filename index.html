@@ -5,892 +5,443 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BC WildWatch™ — Campus Animal Safety</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --navy:    #0a1628;
-      --navy2:   #0f2040;
-      --teal:    #0d9e75;
-      --teal2:   #0bc68f;
-      --amber:   #f5a623;
-      --red:     #e05c4b;
-      --white:   #f8f6f1;
-      --muted:   rgba(248,246,241,0.55);
-      --border:  rgba(248,246,241,0.1);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--navy);
-      color: var(--white);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* --- GRID BACKGROUND --- */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(13,158,117,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(13,158,117,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* --- NAV --- */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      height: 64px;
-      background: rgba(10,22,40,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .nav-logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--teal);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 14px;
-      color: var(--navy);
-      flex-shrink: 0;
-    }
-
-    .nav-logo-text {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--white);
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-link {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: color 0.2s, background 0.2s;
-      font-weight: 400;
-    }
-
-    .nav-link:hover { color: var(--white); background: rgba(248,246,241,0.06); }
-
-    .nav-cta {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--navy);
-      background: var(--teal);
-      text-decoration: none;
-      padding: 8px 18px;
-      border-radius: 8px;
-      transition: background 0.2s, transform 0.15s;
-      margin-left: 8px;
-    }
-
-    .nav-cta:hover { background: var(--teal2); transform: translateY(-1px); }
-
-    /* --- HERO --- */
-    .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 40px 80px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal2);
-      border: 1px solid rgba(13,158,117,0.3);
-      background: rgba(13,158,117,0.08);
-      padding: 6px 14px;
-      border-radius: 100px;
-      margin-bottom: 32px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero-badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--teal2);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(48px, 8vw, 88px);
-      line-height: 1.0;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-
-    .hero h1 span { color: var(--teal2); }
-
-    .hero-sub {
-      font-size: 18px;
-      font-weight: 300;
-      color: var(--muted);
-      max-width: 520px;
-      line-height: 1.7;
-      margin-bottom: 48px;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--navy);
-      background: var(--teal);
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 10px;
-      transition: background 0.2s, transform 0.15s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--white);
-      background: transparent;
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-      cursor: pointer;
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(248,246,241,0.3);
-      background: rgba(248,246,241,0.05);
-      transform: translateY(-2px);
-    }
-
-    .btn-icon { font-size: 18px; }
-
-    /* --- STATS STRIP --- */
-    .stats-strip {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .stat-item {
-      background: var(--navy2);
-      padding: 28px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .stat-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--teal2);
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
-    /* --- SECTION --- */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: 96px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-eyebrow {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal2);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-
-    .section-body {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--muted);
-      max-width: 540px;
-      line-height: 1.8;
-      margin-bottom: 48px;
-    }
-
-    /* --- FEATURE CARDS --- */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .feature-card {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(13,158,117,0.3);
-      transform: translateY(-3px);
-    }
-
-    .feature-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 16px;
-    }
-
-    .icon-teal  { background: rgba(13,158,117,0.12); }
-    .icon-amber { background: rgba(245,166,35,0.12); }
-    .icon-red   { background: rgba(224,92,75,0.12); }
-    .icon-blue  { background: rgba(56,130,221,0.12); }
-
-    .feature-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    /* --- APP LAUNCH SECTION --- */
-    .launch-section {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 64px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .launch-section::before {
-      content: '';
-      position: absolute;
-      top: -80px; left: 50%;
-      transform: translateX(-50%);
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(13,158,117,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .launch-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-      position: relative;
-    }
-
-    .launch-sub {
-      font-size: 15px;
-      color: var(--muted);
-      font-weight: 300;
-      margin-bottom: 36px;
-      position: relative;
-    }
-
-    .launch-buttons {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    .btn-large {
-      font-size: 16px;
-      padding: 16px 36px;
-      border-radius: 12px;
-    }
-
-    /* --- TOOL CARDS --- */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 48px;
-    }
-
-    .tool-card {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .tool-card:hover {
-      border-color: rgba(248,246,241,0.2);
-      transform: translateY(-2px);
-    }
-
-    .tool-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .tool-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .tool-status {
-      font-size: 10px;
-      font-weight: 500;
-      padding: 3px 8px;
-      border-radius: 100px;
-      background: rgba(13,158,117,0.12);
-      color: var(--teal2);
-      border: 1px solid rgba(13,158,117,0.2);
-    }
-
-    .tool-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .tool-desc {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.6;
-    }
-
-    .tool-arrow {
-      font-size: 18px;
-      color: var(--muted);
-      align-self: flex-end;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .tool-card:hover .tool-arrow {
-      color: var(--teal2);
-      transform: translate(2px, -2px);
-    }
-
-    /* --- HOW IT WORKS --- */
-    .steps-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-top: 48px;
-      max-width: 640px;
-    }
-
-    .step-row {
-      display: flex;
-      gap: 24px;
-      position: relative;
-    }
-
-    .step-row:not(:last-child) .step-line {
-      position: absolute;
-      left: 15px;
-      top: 40px;
-      bottom: -16px;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .step-num-circle {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--navy2);
-      border: 1px solid rgba(13,158,117,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--teal2);
-      flex-shrink: 0;
-      margin-top: 4px;
-      font-family: 'Syne', sans-serif;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-content { padding-bottom: 40px; }
-
-    .step-content h4 {
-      font-family: 'Syne', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .step-content p {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.7;
-    }
-
-    /* --- FOOTER --- */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap;
-      gap: 16px;
-    }
-
-    .footer-brand {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .footer-note {
-      font-size: 12px;
-      color: rgba(248,246,241,0.3);
-    }
-
-    /* --- ANIMATIONS --- */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* --- QR SECTION --- */
-    .qr-section {
-      display: flex;
-      align-items: center;
-      gap: 48px;
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 48px;
-      flex-wrap: wrap;
-    }
-
-    .qr-box {
-      width: 140px; height: 140px;
-      background: var(--white);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .qr-placeholder {
-      display: grid;
-      grid-template-columns: repeat(7, 14px);
-      grid-template-rows: repeat(7, 14px);
-      gap: 2px;
-    }
-
-    .qr-cell {
-      border-radius: 2px;
-      background: var(--navy);
-      width: 14px; height: 14px;
-    }
-
-    .qr-cell.w { background: var(--white); }
-
-    .qr-text h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-
-    .qr-text p {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.7;
-      max-width: 380px;
-    }
-
-    /* --- ALERT BANNER --- */
-    .alert-banner {
-      position: relative;
-      z-index: 1;
-      background: rgba(245,166,35,0.08);
-      border-top: 1px solid rgba(245,166,35,0.2);
-      border-bottom: 1px solid rgba(245,166,35,0.2);
-      padding: 12px 40px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: rgba(245,166,35,0.9);
-    }
-
-    .alert-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--amber);
-      flex-shrink: 0;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      nav { padding: 0 16px; }
-      nav .nav-links { display: none; }
-      section { padding: 64px 20px; }
-      .hero { padding: 100px 20px 60px; }
-      .launch-section { padding: 40px 24px; }
-      .qr-section { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
-      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
-      .stats-strip { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ================================================
+     PAGE: LOGIN
+     ================================================ -->
+<div id="page-login" class="page page-active">
+
+  <!-- Campus background -->
+  <div class="login-bg">
+    <img src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D alt="Belgium Campus" class="login-bg-img">
+    <div class="login-bg-overlay"></div>
+  </div>
+
+  <!-- Boom gate -->
+  <div class="gate-wrap" id="gateWrap">
+
+    <!-- Security camera on left post -->
+    <div class="gate-camera" id="gateCamera">
+      <div class="camera-body">📷</div>
+      <div class="camera-beam"></div>
+    </div>
+
+    <!-- Warning signs -->
+    <div class="warning-sign warning-left">
+      <div class="warning-pole"></div>
+      <div class="warning-board">
+        <div class="warning-icon">⚠️</div>
+        <div class="warning-text">WILDLIFE<br>ZONE</div>
+      </div>
+    </div>
+    <div class="warning-sign warning-right">
+      <div class="warning-pole"></div>
+      <div class="warning-board">
+        <div class="warning-icon">🐍</div>
+        <div class="warning-text">REPORT<br>SIGHTINGS</div>
+      </div>
+    </div>
+
+    <!-- Spotlights -->
+    <div class="spotlight spotlight-left"></div>
+    <div class="spotlight spotlight-right"></div>
+
+    <div class="gate-post gate-post-left">
+      <div class="gate-arm gate-arm-left" id="gateArmLeft"></div>
+    </div>
+    <div class="gate-ground"></div>
+    <div class="gate-post gate-post-right">
+      <div class="gate-arm gate-arm-right" id="gateArmRight"></div>
+    </div>
+    <div class="gate-road">
+      <div class="gate-road-line"></div>
+      <div class="gate-road-line"></div>
+      <div class="gate-road-line"></div>
+    </div>
+    <div class="gate-label-outside">OUTSIDE CAMPUS</div>
+    <div class="gate-label-inside">BELGIUM CAMPUS</div>
+  </div>
+
+  <!-- Floating animal particles -->
+  <div class="particles-wrap" id="particlesWrap"></div>
+
+  <!-- Radar scan lines -->
+  <div class="radar-scan-left"></div>
+  <div class="radar-scan-right"></div>
+
+  <!-- Login card -->
+  <div class="login-card" id="loginCard">
+    <div class="login-card-top">
+      <div class="nav-logo-icon" style="width:48px;height:48px;font-size:24px;border-radius:10px">🐾</div>
+      <div>
+        <div class="login-brand">WildWatch<sup>™</sup></div>
+        <div class="login-sub">Campus Animal Safety System</div>
+      </div>
+    </div>
+
+    <div class="login-divider"></div>
+
+    <form class="login-form" id="loginForm" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="loginUsername">Username</label>
+        <input class="form-input" type="text" id="loginUsername"
+               placeholder="e.g. User_Name" autocomplete="username" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="loginPassword">Password (Student Number)</label>
+        <div class="login-pw-wrap">
+          <input class="form-input" type="password" id="loginPassword"
+                 placeholder="e.g. 601234" autocomplete="current-password" required>
+          <button type="button" class="login-pw-toggle" id="pwToggle" tabindex="-1">👁</button>
+        </div>
+      </div>
+
+      <div class="login-error" id="loginError"></div>
+
+      <button type="submit" class="btn-ms-login" id="btnLogin">
+        <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="9" height="9" fill="#F25022"/>
+          <rect x="11" y="1" width="9" height="9" fill="#7FBA00"/>
+          <rect x="1" y="11" width="9" height="9" fill="#00A4EF"/>
+          <rect x="11" y="11" width="9" height="9" fill="#FFB900"/>
+        </svg>
+        <span id="loginBtnText">Sign in</span>
+      </button>
+
+    </form>
+
+    <div class="login-or"><span></span>or<span></span></div>
+
+    <button class="btn-demo-login" id="btnDemoLogin">
+      Continue as Guest (Demo)
+    </button>
+
+    <p class="login-note">
+      🔒 Belgium Campus · Microsoft 365 A3 · SharePoint Authentication
+    </p>
+  </div>
+
+</div><!-- end page-login -->
+
+
+<!-- ================================================
+     PAGE: HOME
+     ================================================ -->
+<div id="page-home" class="page">
+
   <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">BW</div>
-      <span class="nav-logo-text">WildWatch™</span>
+  <nav id="navbar">
+    <a href="#" class="nav-logo" onclick="showPage('home')">
+      <div class="nav-logo-icon"><span>🐾</span></div>
+      <span class="nav-logo-text">WildWatch<sup>™</sup></span>
     </a>
     <div class="nav-links">
-      <a href="#features" class="nav-link">Features</a>
+      <a href="#features"     class="nav-link">Features</a>
       <a href="#how-it-works" class="nav-link">How it works</a>
-      <a href="#tools" class="nav-link">Tools</a>
-      <a href="#launch" class="nav-cta">Report a sighting →</a>
+      <a href="#tools"        class="nav-link">Tools</a>
+      <a onclick="window.showPage('powerbi')" class="nav-link" style="cursor:pointer">Dashboard</a>
+      <a onclick="window.showPage('reports')" class="nav-link" style="cursor:pointer">My Reports</a>
+      <div class="nav-dropdown-wrap">
+        <button class="nav-cta nav-dropdown-trigger" id="navDropdownBtn">
+          Report a sighting ▾
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a onclick="window.showPage('report');window.closeNavDropdown()" class="nav-dropdown-item" style="cursor:pointer">
+            <span class="nav-dd-icon">📝</span>
+            <div>
+              <div class="nav-dd-title">Web Form</div>
+              <div class="nav-dd-sub">Submit directly on this site</div>
+            </div>
+          </a>
+          <a href="https://apps.powerapps.com/play/e/default-ea1a909b-6600-4a25-82a5-0c6ed7d0513b/a/aae983f3-3a6b-4c00-9e8c-6d842415611b?tenantId=ea1a909b-6600-4a25-82a5-0c6ed7d0513b&hint=6ff92ffa-cd91-4a38-85e4-6ee0929a9575&sourcetime=1779540652688"
+             target="_blank" rel="noopener" class="nav-dropdown-item" onclick="window.closeNavDropdown()">
+            <span class="nav-dd-icon">📱</span>
+            <div>
+              <div class="nav-dd-title">Power Apps</div>
+              <div class="nav-dd-sub">Open the full reporting app</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <a onclick="window.showPage('login')" class="nav-signout" style="cursor:pointer">Sign out</a>
     </div>
+    <a href="https://www.belgiumcampus.ac.za" target="_blank" rel="noopener" class="nav-bc-logo">
+      <img src="https://www.belgiumcampus.ac.za/wp-content/uploads/2025/12/BC-logo-header-dark-svg-1.svg"
+           alt="Belgium Campus iTversity" height="32">
+    </a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features"      class="mobile-link">Features</a>
+    <a href="#how-it-works"  class="mobile-link">How it works</a>
+    <a href="#tools"         class="mobile-link">Tools</a>
+    <a onclick="showPage('report');mobileMenu.classList.remove('open')"  class="mobile-link">Report a sighting</a>
+    <a onclick="showPage('powerbi');mobileMenu.classList.remove('open')" class="mobile-link">Dashboard</a>
+    <a onclick="showPage('reports');mobileMenu.classList.remove('open')" class="mobile-link">My Reports</a>
+    <a onclick="showPage('login');mobileMenu.classList.remove('open')"   class="mobile-link" style="color:var(--red)">Sign out</a>
+  </div>
 
   <!-- ALERT BANNER -->
   <div class="alert-banner">
-    <div class="alert-dot"></div>
-    <span>Live system — Belgium Campus. Sign in with your Microsoft 365 student account to report animal sightings.</span>
+    <span class="alert-dot"></span>
+    <span id="alertBannerText">Live system — Belgium Campus. Signed in with Microsoft 365 A3.</span>
   </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-badge">
-      <div class="hero-badge-dot"></div>
-      Belgium Campus · Live Deployment
+  <!-- HERO WRAPPER -->
+  <div class="hero-wrapper">
+  <section class="hero" id="home-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Belgium Campus · Live Deployment
+      </div>
+      <h1 class="hero-title">
+        Campus<br>
+        <span class="hero-title-accent">Safety</span><br>
+        Starts Here
+      </h1>
+      <p class="hero-sub">
+        BC WildWatch™ is the real-time animal safety reporting system for Belgium Campus.
+        Spot a hazard, report it instantly, keep everyone safe.
+      </p>
+      <div class="hero-actions">
+        <button onclick="showPage('report')" class="btn-primary">
+          <span>🐍</span> Report a Sighting
+        </button>
+        <a href="#how-it-works" class="btn-ghost">How it works ↓</a>
+      </div>
     </div>
-    <h1>Campus safety<br>starts with <span>one report</span></h1>
-    <p class="hero-sub">BC WildWatch™ is the real-time animal safety reporting system for Belgium Campus. Spot a hazard, report it instantly, keep everyone safe.</p>
-    <div class="hero-actions">
-      <a href="https://apps.powerapps.com/play/e/default-ea1a909b-6600-4a25-82a5-0c6ed7d0513b/a/aae983f3-3a6b-4c00-9e8c-6d842415611b?tenantId=ea1a909b-6600-4a25-82a5-0c6ed7d0513b&hint=6ff92ffa-cd91-4a38-85e4-6ee0929a9575&sourcetime=1779540652688" target="_blank" rel="noopener" class="btn-primary btn-large">
-        <span class="btn-icon">🐍</span> Report a sighting
-      </a>
-      <a href="#how-it-works" class="btn-secondary btn-large">
-        How it works
-      </a>
+    <div class="hero-visual">
+      <div class="radar-container">
+        <div class="radar-ring r1"></div>
+        <div class="radar-ring r2"></div>
+        <div class="radar-ring r3"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-crosshair ch-h"></div>
+        <div class="radar-crosshair ch-v"></div>
+        <div class="radar-blip b1"></div>
+        <div class="radar-blip b2"></div>
+        <div class="radar-blip b3"></div>
+        <div class="radar-core"><span>🦎</span></div>
+      </div>
+      <div class="radar-label">WILDWATCH</div>
+    </div>
+  </section>
+  <div class="scroll-hint-bar">
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </div>
+  </div>
 
-  <!-- STATS -->
-  <div class="stats-strip">
-    <div class="stat-item">
-      <div class="stat-number">M365</div>
-      <div class="stat-label">Secure student login</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">&lt;60s</div>
-      <div class="stat-label">Alert to security team</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">Live</div>
-      <div class="stat-label">Power BI dashboard</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">AI</div>
-      <div class="stat-label">Chatbot assistance</div>
+  <!-- STATS STRIP -->
+  <div class="stats-strip-outer">
+    <div class="stats-strip">
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <div class="stat-number">M365</div>
+        <div class="stat-label">Secure student login</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">&lt;60s</div>
+        <div class="stat-label">Alert to security team</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">Live</div>
+        <div class="stat-label">Power BI dashboard</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">AI</div>
+        <div class="stat-label">Chatbot assistance</div>
+      </div>
     </div>
   </div>
 
   <!-- FEATURES -->
-  <section id="features">
-    <div class="reveal">
-      <p class="section-eyebrow">Features</p>
-      <h2 class="section-title">Everything campus<br>safety needs</h2>
+  <section id="features" class="section">
+    <div class="section-header reveal">
+      <p class="eyebrow">// Features</p>
+      <h2 class="section-title">Everything campus<br><span class="accent">safety needs</span></h2>
       <p class="section-body">Built on Microsoft Power Platform with free-tier technologies. Secure, scalable, and accessible from any device on campus.</p>
     </div>
-    <div class="feature-grid reveal">
-      <div class="feature-card">
-        <div class="feature-icon icon-teal">📍</div>
-        <div class="feature-title">GPS-tagged reports</div>
-        <div class="feature-desc">Every sighting is automatically tagged with location data so security can find the exact spot on campus.</div>
+    <div class="feature-grid">
+      <div class="feature-card reveal" style="--d:0ms">
+        <div class="fc-glow"></div>
+        <div class="feature-icon teal">📍</div>
+        <h3 class="feature-title">GPS-Tagged Reports</h3>
+        <p class="feature-desc">Every sighting is tagged with location data so security reaches the exact spot instantly.</p>
+        <span class="fc-num">01</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon icon-amber">⚡</div>
-        <div class="feature-title">Instant alerts</div>
-        <div class="feature-desc">Power Automate fires an email alert to campus security within seconds of any high-severity report being submitted.</div>
+      <div class="feature-card reveal" style="--d:80ms">
+        <div class="fc-glow amber-g"></div>
+        <div class="feature-icon amber">⚡</div>
+        <h3 class="feature-title">Instant Alerts</h3>
+        <p class="feature-desc">Power Automate fires email alerts to campus security within seconds of a high-severity report.</p>
+        <span class="fc-num">02</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon icon-red">🤖</div>
-        <div class="feature-title">AI chatbot</div>
-        <div class="feature-desc">Not sure what you saw? The built-in chatbot helps identify animals and advises on the appropriate safety response.</div>
+      <div class="feature-card reveal" style="--d:160ms">
+        <div class="fc-glow red-g"></div>
+        <div class="feature-icon red">🤖</div>
+        <h3 class="feature-title">AI Chatbot</h3>
+        <p class="feature-desc">The built-in Copilot chatbot identifies animals and advises on the correct safety response.</p>
+        <span class="fc-num">03</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon icon-blue">📊</div>
-        <div class="feature-title">Live dashboard</div>
-        <div class="feature-desc">Power BI gives campus admins a real-time view of all sightings, hotspots, and incident trends across the campus.</div>
+      <div class="feature-card reveal" style="--d:240ms">
+        <div class="fc-glow blue-g"></div>
+        <div class="feature-icon blue">📊</div>
+        <h3 class="feature-title">Live Dashboard</h3>
+        <p class="feature-desc">Power BI gives admins a real-time view of all sightings, hotspots, and incident trends.</p>
+        <span class="fc-num">04</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon icon-teal">🔒</div>
-        <div class="feature-title">Secure login</div>
-        <div class="feature-desc">Microsoft 365 A3 authentication ensures only verified Belgium Campus students and staff can access the system.</div>
+      <div class="feature-card reveal" style="--d:320ms">
+        <div class="fc-glow"></div>
+        <div class="feature-icon teal">🔒</div>
+        <h3 class="feature-title">Secure Login</h3>
+        <p class="feature-desc">Microsoft 365 A3 / Azure AD ensures only verified Belgium Campus students and staff get in.</p>
+        <span class="fc-num">05</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon icon-amber">📷</div>
-        <div class="feature-title">Photo upload</div>
-        <div class="feature-desc">Attach a photo directly from your phone camera when submitting a report to help security assess the situation.</div>
+      <div class="feature-card reveal" style="--d:400ms">
+        <div class="fc-glow amber-g"></div>
+        <div class="feature-icon amber">📷</div>
+        <h3 class="feature-title">Photo Upload</h3>
+        <p class="feature-desc">Attach a photo straight from your phone to help security assess the threat at a glance.</p>
+        <span class="fc-num">06</span>
       </div>
     </div>
   </section>
+
+  <!-- IMAGE STRIP -->
+  <div class="img-strip">
+    <div class="img-strip-item">
+      <img src="https://images.unsplash.com/photo-1737116530517-45449ff23f3f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHB1ZmYlMjBhZGRlcnxlbnwwfDB8MHx8fDI%3D" alt="Snake" loading="lazy">
+      <div class="img-strip-label">Snake sighting</div>
+    </div>
+    <div class="img-strip-item">
+      <img src="https://images.unsplash.com/photo-1651551467116-85d8df998a23?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJlcHRpbGUlMjBwYXRyb2x8ZW58MHwwfDB8fHwy" alt="Monitor lizard" loading="lazy">
+      <div class="img-strip-label">Reptile patrol</div>
+    </div>
+    <div class="img-strip-item">
+      <img src="https://images.unsplash.com/photo-1739960041256-140d01954328?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW9uZ29vc2V8ZW58MHwwfDB8fHwy" alt="Mongoose" loading="lazy">
+      <div class="img-strip-label">Wildlife on campus</div>
+    </div>
+    <div class="img-strip-item">
+      <img src="https://media.istockphoto.com/id/485632753/photo/retro-campus-security.webp?a=1&b=1&s=612x612&w=0&k=20&c=3IXJDFWClFvNZEm1UXLzMMgvUhwSJx71o9Vs-swujOU=" alt="University campus" loading="lazy">
+      <div class="img-strip-label">Campus safety</div>
+    </div>
+  </div>
 
   <!-- HOW IT WORKS -->
-  <section id="how-it-works" style="padding-top:0">
-    <div class="reveal">
-      <p class="section-eyebrow">How it works</p>
-      <h2 class="section-title">From sighting<br>to resolved</h2>
-      <p class="section-body">The entire process from spotting a hazardous animal to campus security being notified takes under 60 seconds.</p>
-    </div>
-    <div class="steps-list reveal">
-      <div class="step-row">
-        <div class="step-line"></div>
-        <div class="step-num-circle">1</div>
-        <div class="step-content">
-          <h4>Sign in with your M365 account</h4>
-          <p>Click "Report a sighting" and log in with your Belgium Campus Microsoft 365 student credentials. No separate account needed.</p>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-line"></div>
-        <div class="step-num-circle">2</div>
-        <div class="step-content">
-          <h4>Fill in the report form</h4>
-          <p>Select the animal type, severity level, your location on campus, and optionally attach a photo. The form takes under a minute to complete.</p>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-line"></div>
-        <div class="step-num-circle">3</div>
-        <div class="step-content">
-          <h4>Automatic alert fires</h4>
-          <p>If the severity is high, Power Automate immediately emails the campus security team with the full report details and location.</p>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-num-circle">4</div>
-        <div class="step-content">
-          <h4>Security responds</h4>
-          <p>Campus admin monitors all incidents on the live Power BI dashboard. Your report is logged, tracked, and resolved.</p>
-        </div>
+  <section id="how-it-works" class="section hiw-section">
+    <div class="hiw-header reveal">
+      <div class="section-header">
+        <p class="eyebrow">// Process</p>
+        <h2 class="section-title">From sighting<br><span class="accent">to resolved</span></h2>
+        <p class="section-body">The entire process from spotting a hazardous animal to security being on the ground takes under 60 seconds.</p>
       </div>
     </div>
-  </section>
-
-  <!-- LAUNCH CTA -->
-  <section id="launch" style="padding-top:0">
-    <div class="launch-section reveal">
-      <h2 class="launch-title">Ready to report a sighting?</h2>
-      <p class="launch-sub">Sign in with your Belgium Campus M365 account to get started.</p>
-      <div class="launch-buttons">
-        <a href="https://apps.powerapps.com/play/e/default-ea1a909b-6600-4a25-82a5-0c6ed7d0513b/a/aae983f3-3a6b-4c00-9e8c-6d842415611b?tenantId=ea1a909b-6600-4a25-82a5-0c6ed7d0513b&hint=6ff92ffa-cd91-4a38-85e4-6ee0929a9575&sourcetime=1779540652688" target="_blank" rel="noopener" class="btn-primary btn-large">
-          Open the reporting app →
-        </a>
-        <a href="https://app.powerbi.com/view?r=eyJrIjoiZDE1YjUwYWUtZTlmYi00NDYyLThmMjEtYTE4Y2I4YzYxNTFkIiwidCI6ImVhMWE5MDliLTY2MDAtNGEyNS04MmE1LTBjNmVkN2QwNTEzYiIsImMiOjl9" target="_blank" rel="noopener" class="btn-secondary btn-large">
-          View live dashboard
-        </a>
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <div class="step-icon-wrap">🔐</div>
+        <span class="step-num">01</span>
+        <h4 class="step-title">Sign in with M365</h4>
+        <p class="step-desc">Log in with your Belgium Campus Microsoft 365 credentials via Azure AD.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-icon-wrap">📝</div>
+        <span class="step-num">02</span>
+        <h4 class="step-title">Fill the report</h4>
+        <p class="step-desc">Animal type, severity, campus location, optional photo. Under a minute.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-icon-wrap">🚨</div>
+        <span class="step-num">03</span>
+        <h4 class="step-title">Alert fires instantly</h4>
+        <p class="step-desc">High-severity reports trigger an immediate Power Automate email to campus security.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-card">
+        <div class="step-icon-wrap">✅</div>
+        <span class="step-num">04</span>
+        <h4 class="step-title">Security responds</h4>
+        <p class="step-desc">Admin tracks every incident on the live Power BI dashboard. Logged, tracked, resolved.</p>
       </div>
     </div>
   </section>
 
   <!-- TOOLS -->
-  <section id="tools" style="padding-top:0">
-    <div class="reveal">
-      <p class="section-eyebrow">System tools</p>
-      <h2 class="section-title">All access points</h2>
-      <p class="section-body">Every component of BC WildWatch™ in one place. All require Microsoft 365 Belgium Campus login.</p>
+  <section id="tools" class="section">
+    <div class="section-header reveal">
+      <p class="eyebrow">// Access points</p>
+      <h2 class="section-title">All system <span class="accent">tools</span></h2>
+      <p class="section-body">Every component of BC WildWatch™. All require Belgium Campus M365 login.</p>
     </div>
-    <div class="tools-grid reveal">
-      <a href="https://apps.powerapps.com/play/e/default-ea1a909b-6600-4a25-82a5-0c6ed7d0513b/a/aae983f3-3a6b-4c00-9e8c-6d842415611b?tenantId=ea1a909b-6600-4a25-82a5-0c6ed7d0513b&hint=6ff92ffa-cd91-4a38-85e4-6ee0929a9575&sourcetime=1779540652688" target="_blank" rel="noopener" class="tool-card">
-        <div class="tool-card-header">
+    <div class="tools-grid">
+      <a href="https://apps.powerapps.com/play/e/default-ea1a909b-6600-4a25-82a5-0c6ed7d0513b/a/aae983f3-3a6b-4c00-9e8c-6d842415611b?tenantId=ea1a909b-6600-4a25-82a5-0c6ed7d0513b&hint=6ff92ffa-cd91-4a38-85e4-6ee0929a9575&sourcetime=1779540652688"
+         target="_blank" rel="noopener" class="tool-card reveal" style="--d:0ms">
+        <div class="tool-top">
           <span class="tool-label">Power Apps</span>
-          <span class="tool-status">Live</span>
+          <span class="tool-pill">Live</span>
         </div>
-        <div class="tool-name">Reporting App</div>
-        <div class="tool-desc">Submit animal sightings, upload photos, and tag your location on campus.</div>
-        <div class="tool-arrow">↗</div>
+        <div class="tool-emoji">📱</div>
+        <h3 class="tool-name">Reporting App</h3>
+        <p class="tool-desc">Submit animal sightings via the full Power Apps reporting system.</p>
+        <div class="tool-footer">
+          <span class="tool-cta-text">Open app</span>
+          <span class="tool-arrow">↗</span>
+        </div>
       </a>
-<a href="https://app.powerbi.com/view?r=eyJrIjoiZDE1YjUwYWUtZTlmYi00NDYyLThmMjEtYTE4Y2I4YzYxNTFkIiwidCI6ImVhMWE5MDliLTY2MDAtNGEyNS04MmE1LTBjNmVkN2QwNTEzYiIsImMiOjl9"
-   target="_blank"
-   rel="noopener"
-   class="tool-card">
-  <div class="tool-card-header">
-    <span class="tool-label">Power BI</span>
-    <span class="tool-status">Live</span>
-  </div>
-  <div class="tool-name">Admin Dashboard</div>
-  <div class="tool-desc">
-    Live map and incident charts showing all campus animal sightings in real time.
-  </div>
-  <div class="tool-arrow">↗</div>
-</a>
-      <a href="PASTE_CHATBOT_URL_HERE" target="_blank" rel="noopener" class="tool-card">
-        <div class="tool-card-header">
-          <span class="tool-label">Copilot Studio</span>
-          <span class="tool-status">Live</span>
+      <a href="https://app.powerbi.com/view?r=eyJrIjoiZDE1YjUwYWUtZTlmYi00NDYyLThmMjEtYTE4Y2I4YzYxNTFkIiwidCI6ImVhMWE5MDliLTY2MDAtNGEyNS04MmE1LTBjNmVkN2QwNTEzYiIsImMiOjl9"
+         target="_blank" rel="noopener" class="tool-card reveal" style="--d:100ms">
+        <div class="tool-top">
+          <span class="tool-label">Power BI</span>
+          <span class="tool-pill">Live</span>
         </div>
-        <div class="tool-name">Animal ID Chatbot</div>
-        <div class="tool-desc">Not sure what animal you saw? Get identification help and safety advice instantly.</div>
-        <div class="tool-arrow">↗</div>
+        <div class="tool-emoji">📊</div>
+        <h3 class="tool-name">Admin Dashboard</h3>
+        <p class="tool-desc">Live map and charts showing all campus sightings in real time.</p>
+        <div class="tool-footer">
+          <span class="tool-cta-text">View dashboard</span>
+          <span class="tool-arrow">↗</span>
+        </div>
+      </a>
+      <a href="PASTE_CHATBOT_URL_HERE" target="_blank" rel="noopener" class="tool-card reveal" style="--d:200ms">
+        <div class="tool-top">
+          <span class="tool-label">AI Chatbot</span>
+          <span class="tool-pill">Live</span>
+        </div>
+        <div class="tool-emoji">🤖</div>
+        <h3 class="tool-name"> Chatbot</h3>
+        <p class="tool-desc">Not sure what you saw? Get identification help and safety advice instantly.</p>
+        <div class="tool-footer">
+          <span class="tool-cta-text">Open chatbot</span>
+          <span class="tool-arrow">↗</span>
+        </div>
       </a>
     </div>
   </section>
 
-  <!-- QR CODE SECTION -->
-  <section style="padding-top:0">
+  <!-- QR SECTION -->
+  <section class="section qr-wrap">
     <div class="qr-section reveal">
       <div class="qr-box">
-        <div style="text-align:center;color:var(--navy);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;padding:8px">
-          <div style="font-size:28px;margin-bottom:4px">QR</div>
-          Replace with<br>your QR code<br>image here
-        </div>
+        <div class="qr-inner">QR<br><small>Replace with<br>your QR image</small></div>
       </div>
       <div class="qr-text">
+        <p class="eyebrow">// Quick access</p>
         <h3>Scan to report instantly</h3>
-        <p>Generate your QR code at qr-code-monkey.com using your GitHub Pages URL, then replace the QR placeholder in this page with an &lt;img&gt; tag pointing to the downloaded PNG. Print it for notice boards, demonstration day, and your CV.</p>
-        <a href="https://www.qr-code-monkey.com" target="_blank" rel="noopener" class="btn-secondary" style="margin-top:20px;font-size:13px;padding:10px 20px">
+        <p>Generate your QR at qr-code-monkey.com using your GitHub Pages URL, then replace the placeholder with an &lt;img&gt; tag. Print for notice boards, demo day, and your CV.</p>
+        <a href="https://www.qr-code-monkey.com" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:20px;display:inline-flex">
           Generate QR code →
         </a>
       </div>
@@ -899,22 +450,209 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-brand">BC WildWatch™ — Belgium Campus</div>
-    <div class="footer-note">Built on Microsoft Power Platform · GitHub Pages · Microsoft 365 A3</div>
+    <div class="footer-left">
+      <div class="nav-logo-icon"><span>🐾</span></div>
+      <span class="footer-brand">BC WildWatch™</span>
+    </div>
+    <a href="https://www.belgiumcampus.ac.za" target="_blank" rel="noopener" class="footer-bc-logo">
+      <img src="https://www.belgiumcampus.ac.za/wp-content/uploads/2025/12/BC-logo-white-350w.png"
+           alt="Belgium Campus iTversity" height="36">
+    </a>
+    <span class="footer-note">Microsoft Power Platform · GitHub Pages · Microsoft 365 A3</span>
   </footer>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
+</div><!-- end page-home -->
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
 
+<!-- ================================================
+     PAGE: REPORT
+     ================================================ -->
+<div id="page-report" class="page">
+  <nav id="navbar-report" class="sub-navbar">
+    <button onclick="showPage('home')" class="sub-nav-back">← Back</button>
+    <span class="sub-nav-title">🐍 Report a Sighting</span>
+    <span class="sub-nav-right">BC WildWatch™</span>
+  </nav>
+
+  <section class="section report-section" style="padding-top:100px">
+    <div class="report-inner">
+      <div class="report-header">
+        <p class="eyebrow">// Submit a report</p>
+        <h2 class="section-title">Report an<br><span class="accent">animal sighting</span></h2>
+        <p class="section-body">Fill in the form and campus security will be alerted within 60 seconds for high-severity reports.</p>
+        <div class="report-info-cards">
+          <div class="report-info-card">
+            <span>🚨</span>
+            <div>
+              <strong>High severity</strong>
+              <p>Security alerted immediately via Power Automate</p>
+            </div>
+          </div>
+          <div class="report-info-card">
+            <span>📋</span>
+            <div>
+              <strong>All reports logged</strong>
+              <p>Stored in SharePoint, visible on Power BI dashboard</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-form-wrap">
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✅</div>
+          <h3>Report submitted!</h3>
+          <p>Campus security has been notified. Stay safe and keep your distance from the animal.</p>
+          <button class="btn-ghost" onclick="resetForm()">Submit another report</button>
+        </div>
+
+        <form class="report-form" id="reportForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="studentNumber">Student Number <span class="req">*</span></label>
+              <input class="form-input" type="text" id="studentNumber" placeholder="e.g. 601256" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="animalType">Animal Type <span class="req">*</span></label>
+              <select class="form-input form-select" id="animalType" required>
+                <option value="" disabled selected>Select animal...</option>
+                <option>Snake</option>
+                <option>Spider</option>
+                <option>Scorpion</option>
+                <option>Mongoose</option>
+                <option>Monitor Lizard</option>
+                <option>Bird</option>
+                <option>Stray Dog</option>
+                <option>Stray Cat</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="area">Campus Area <span class="req">*</span></label>
+              <select class="form-input form-select" id="area" required>
+                <option value="" disabled selected>Select area...</option>
+                <option>Parking Area</option>
+                <option>Main Building</option>
+                <option>Cafeteria</option>
+                <option>Sports Field</option>
+                <option>Residence</option>
+                <option>Library</option>
+                <option>Admin Block</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="severity">Severity <span class="req">*</span></label>
+              <select class="form-input form-select" id="severity" required>
+                <option value="" disabled selected>Select severity...</option>
+                <option value="Low">Low — Not an immediate threat</option>
+                <option value="Medium">Medium — Potentially dangerous</option>
+                <option value="High">High — Immediate danger</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="locationName">Exact Location <span class="req">*</span></label>
+            <input class="form-input" type="text" id="locationName" placeholder="e.g. Near the fire exit on east side of Block B" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="description">Description\Additional Notes<span class="req">*</span></label>
+            <textarea class="form-input form-textarea" id="description" rows="3" placeholder="Any extra details that could help security..." required></textarea>
+          </div>
+          <div class="form-error" id="formError"></div>
+          <button type="submit" class="btn-primary btn-large form-submit" id="submitBtn">
+            <span id="submitText">🐍 Submit Report</span>
+            <span id="submitSpinner" style="display:none">Submitting...</span>
+          </button>
+          <p class="form-note">⚠️ For life-threatening emergencies call campus security directly. This form submits directly to the SharePoint incident list via Power Automate.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</div><!-- end page-report -->
+
+
+<!-- ================================================
+     PAGE: POWER BI
+     ================================================ -->
+<div id="page-powerbi" class="page">
+  <nav id="navbar-powerbi" class="sub-navbar">
+    <button onclick="showPage('home')" class="sub-nav-back">← Back</button>
+    <span class="sub-nav-title">📊 Live Dashboard</span>
+    <span class="sub-nav-right">BC WildWatch™</span>
+  </nav>
+
+  <div class="powerbi-page">
+    <div class="powerbi-header">
+      <p class="eyebrow">// Power BI</p>
+      <h2 class="section-title">Live incident <span class="accent">dashboard</span></h2>
+      <p class="section-body">Real-time view of all campus animal sightings, hotspots, and incident trends.</p>
+    </div>
+    <div class="powerbi-embed-wrap">
+      <iframe
+        class="powerbi-iframe"
+        src="https://app.powerbi.com/view?r=eyJrIjoiZDE1YjUwYWUtZTlmYi00NDYyLThmMjEtYTE4Y2I4YzYxNTFkIiwidCI6ImVhMWE5MDliLTY2MDAtNGEyNS04MmE1LTBjNmVkN2QwNTEzYiIsImMiOjl9"
+        frameborder="0"
+        allowfullscreen="true">
+      </iframe>
+      <div class="powerbi-placeholder" id="powerbiPlaceholder">
+        <div class="powerbi-placeholder-icon">📊</div>
+        <h3>Power BI Dashboard</h3>
+        <p>Paste your Power BI embed URL into index.html to activate this dashboard.</p>
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiZDE1YjUwYWUtZTlmYi00NDYyLThmMjEtYTE4Y2I4YzYxNTFkIiwidCI6ImVhMWE5MDliLTY2MDAtNGEyNS04MmE1LTBjNmVkN2QwNTEzYiIsImMiOjl9" target="_blank" rel="noopener" class="btn-primary" style="margin-top:16px">
+          Open in Power BI →
+        </a>
+      </div>
+    </div>
+  </div>
+</div><!-- end page-powerbi -->
+
+
+<!-- ================================================
+     PAGE: MY REPORTS
+     ================================================ -->
+<div id="page-reports" class="page">
+  <nav class="sub-navbar">
+    <button onclick="window.showPage('home')" class="sub-nav-back">← Back</button>
+    <span class="sub-nav-title">📋 My Reports</span>
+    <span class="sub-nav-right">BC WildWatch™</span>
+  </nav>
+
+  <div class="reports-page">
+    <div class="reports-header">
+      <p class="eyebrow">// Your submissions</p>
+      <h2 class="section-title">My incident <span class="accent">reports</span></h2>
+      <p class="section-body">All animal sightings you have submitted. Showing reports for student number <strong id="reportsStudentNum" style="color:var(--green)"></strong>.</p>
+    </div>
+
+    <div class="reports-loading" id="reportsLoading">
+      <div class="reports-spinner"></div>
+      <p>Fetching your reports from SharePoint...</p>
+    </div>
+
+    <div class="reports-error" id="reportsError" style="display:none">
+      <div style="font-size:48px">⚠️</div>
+      <h3>Could not load reports</h3>
+      <p id="reportsErrorMsg">Please try again.</p>
+      <button class="btn-ghost" onclick="loadMyReports()" style="margin-top:16px">Try again</button>
+    </div>
+
+    <div class="reports-empty" id="reportsEmpty" style="display:none">
+      <div style="font-size:48px">📭</div>
+      <h3>No reports yet</h3>
+      <p>You haven't submitted any sightings. Be the first to report one!</p>
+      <button class="btn-primary" onclick="window.showPage('report')" style="margin-top:16px">Report a sighting</button>
+    </div>
+
+    <div class="reports-grid" id="reportsGrid" style="display:none"></div>
+  </div>
+</div><!-- end page-reports -->
+
+<div id="loginFlash">
+  <div class="scan-line"></div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
