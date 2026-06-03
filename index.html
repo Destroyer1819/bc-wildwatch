@@ -553,8 +553,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" for="locationName">Exact Location <span class="req">*</span></label>
-            <input class="form-input" type="text" id="locationName" placeholder="e.g. Near the fire exit on east side of Block B" required>
+            <label class="form-label" for="locationName">Campus Location <span class="req">*</span></label>
+            <select class="form-input form-select" id="location" required>
+                <option value="" disabled selected>Select Location...</option>
+                <option value="138 Berg Ave, Heatherdale AH, Akasia, 0182">Pretoria</option>
+                <option value="10 Distillery Rd, Stellenbosch Central, Stellenbosch, 7600">Stellenbosch</option>
+                <option value="45A Long St, Kempton Park Cbd, Kempton Park, 1619">Kempton Park</option>
+              </select>
           </div>
           <div class="form-group">
             <label class="form-label" for="description">Description\Additional Notes<span class="req">*</span></label>
