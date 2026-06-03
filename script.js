@@ -1,5 +1,5 @@
 // ============================================
-//  BC WildWatch™  —  script.js  v4
+//  BC WildWatch™ 
 //  Single Page App controller
 // ============================================
 
@@ -354,10 +354,10 @@ if (reportForm) {
     const animalType    = document.getElementById('animalType').value;
     const area          = document.getElementById('area').value;
     const severity      = document.getElementById('severity').value;
-    const locationName  = document.getElementById('locationName').value.trim();
+    const locationName  = document.getElementById('location').value.trim();
     const description   = document.getElementById('description').value.trim();
 
-    if (!studentNumber || !animalType || !area || !severity || !locationName) {
+    if (!studentNumber || !animalType || !area || !severity || !locationName || !description) {
       showError('Please fill in all required fields.');
       return;
     }
@@ -374,7 +374,7 @@ if (reportForm) {
       AnimalType:    animalType,
       Area:          area,
       Severity:      severity,
-      LocationName:  locationName,
+      Location:      locationName,
       Description:   description,
       ReportedAt:    new Date().toISOString(),
       Source:        'WildWatch Website'
