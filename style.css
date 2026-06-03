@@ -2029,3 +2029,176 @@ footer {
     width: min(400px, 92vw) !important;
   }
 }
+
+/* =========================================
+   NATIVE CHATBOT UI
+   ========================================= */
+   
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; 
+    opacity: 1; 
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden { 
+  display: none !important;
+  opacity: 0; }
+
+.glass-modal {
+    width: 90%; 
+    max-width: 420px; 
+    height: 75vh;
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { transform: scale(0.95) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 16px 24px; 
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 { 
+  margin: 0; 
+  font-size: 1.2rem; 
+  font-weight: 600; 
+  color: var(--text-light); 
+}
+
+.close-btn {
+    background: none; 
+    border: none; 
+    color: #fff; 
+    font-size: 1.8rem;
+    line-height: 1; 
+    cursor: pointer; 
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.close-btn:hover { 
+  transform: scale(1.1); 
+  color: #ff4757; }
+
+.chat-layout { 
+    display: flex; 
+    flex-direction: column; 
+    padding: 15px; 
+    flex: 1; 
+    min-height: 0; /* CRITICAL: Allows the layout to shrink inside the modal */
+    box-sizing: border-box; 
+}
+
+.chat-history { 
+    flex: 1; 
+    min-height: 0; /* CRITICAL: Forces the scrollbar to activate instead of expanding */
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    padding-right: 5px; 
+}
+
+.chat-history::-webkit-scrollbar { 
+  width: 6px; 
+}
+
+.chat-history::-webkit-scrollbar-thumb { 
+  background: rgba(255, 255, 255, 0.2); 
+  border-radius: 10px; 
+}
+
+.message {
+    max-width: 85%; 
+    padding: 12px 16px; 
+    border-radius: 14px;
+    font-size: 0.95rem; 
+    line-height: 1.4; 
+    word-wrap: break-word; 
+    white-space: pre-wrap;
+}
+
+.bot-message {
+    align-self: flex-start; 
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    color: #fff; 
+    border-bottom-left-radius: 2px;
+}
+
+.user-message {
+    align-self: flex-end; 
+    background: rgba(0, 168, 255, 0.3);
+    border: 1px solid rgba(0, 168, 255, 0.5); 
+    color: #fff; border-bottom-right-radius: 2px;
+}
+
+.chat-input-area { 
+    flex-shrink: 0; /* CRITICAL: Prevents the input box from ever getting squished or pushed out */
+    display: flex; 
+    gap: 10px; 
+    margin-top: 15px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-top: 15px; 
+}
+
+#chatInput {
+    flex-grow: 1; padding: 12px; 
+    border-radius: 8px; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.2); 
+    color: #fff; 
+    outline: none; 
+    font-family: inherit;
+}
+
+#chatInput:focus { 
+  border-color: rgba(0, 168, 255, 0.5); 
+}
+
+#sendBtn {
+    padding: 0 20px; 
+    border-radius: 8px; 
+    border: none; 
+    background: #00a8ff;
+    color: white; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: background 0.2s ease;
+}
+
+#sendBtn:hover { 
+  background: #0097e6; 
+}
+
+.typing-indicator { 
+  align-self: flex-start; 
+  color: rgba(255, 255, 255, 0.6); 
+  font-size: 0.85rem; 
+  font-style: italic; 
+  margin-left: 5px; 
+}
