@@ -523,3 +523,70 @@ window.showPage = function(name, skipTransition) {
     setTimeout(window.loadMyReports, 400);
   }
 };
+
+// =========================================
+// NATIVE CHATBOT LOGIC & WEBHOOK
+// =========================================
+const chatWebhookUrl = "https://defaultea1a909b66004a2582a50c6ed7d051.3b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/38b49b324b45489d85892c5a5b9bed9f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sPriCJcLXIdrXgHvZb2728fvDnUL07g7f5OwrdLFQ-A";
+
+function openChatbot(event) {
+    if(event) event.preventDefault(); 
+    document.getElementById('chatbotModal').classList.remove('hidden');
+}
+
+document.getElementById('closeChatbot').addEventListener('click', function() {
+    document.getElementById('chatbotModal').classList.add('hidden');
+});
+
+const sendBtn = document.getElementById('sendBtn');
+const chatInput = document.getElementById('chatInput');
+const chatHistory = document.getElementById('chatHistory');
+
+async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.className = 'message user-message';
+    userMessageDiv.textContent = text;
+    chatHistory.appendChild(userMessageDiv);
+    
+    chatInput.value = '';
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'typing-indicator';
+    typingIndicator.textContent = 'Assistant is typing...';
+    chatHistory.appendChild(typingIndicator);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+
+    try {
+        const response = await fetch(chatWebhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
+        
+        const data = await response.json();
+        typingIndicator.remove();
+
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'message bot-message';
+        botMessageDiv.textContent = data.chatbotreply;
+        chatHistory.appendChild(botMessageDiv);
+        
+    } catch (error) {
+        typingIndicator.remove();
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'message bot-message';
+        errorDiv.style.color = '#ff4757';
+        errorDiv.textContent = 'Connection error. Please try again.';
+        chatHistory.appendChild(errorDiv);
+    }
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+}
+
+sendBtn.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessage();
+});
