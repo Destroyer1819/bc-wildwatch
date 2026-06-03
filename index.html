@@ -415,18 +415,10 @@
           <span class="tool-arrow">↗</span>
         </div>
       </a>
-      <a href="PASTE_CHATBOT_URL_HERE" target="_blank" rel="noopener" class="tool-card reveal" style="--d:200ms">
-        <div class="tool-top">
-          <span class="tool-label">AI Chatbot</span>
-          <span class="tool-pill">Live</span>
-        </div>
-        <div class="tool-emoji">🤖</div>
-        <h3 class="tool-name"> Chatbot</h3>
-        <p class="tool-desc">Not sure what you saw? Get identification help and safety advice instantly.</p>
-        <div class="tool-footer">
-          <span class="tool-cta-text">Open chatbot</span>
-          <span class="tool-arrow">↗</span>
-        </div>
+      <a href="#" onclick="openChatbot(event)" class="tool-card">
+    <div class="icon-container">💬</div>
+    <h3>AI Chatbot</h3>
+    <p>Get instant safety advice</p>
       </a>
     </div>
   </section>
@@ -657,6 +649,26 @@
 <div id="loginFlash">
   <div class="scan-line"></div>
 </div>
+
+<div id="chatbotModal" class="modal-overlay hidden">
+    <div class="glass-modal">
+        <div class="modal-header">
+            <h3>BC WildWatch™ Assistant</h3>
+            <button id="closeChatbot" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body chat-layout">
+            <div id="chatHistory" class="chat-history">
+                <div class="message bot-message">Hi there! I'm your campus animal safety assistant. How can I help you today?</div>
+            </div>
+            
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+                <button id="sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
