@@ -86,7 +86,7 @@ bc-wildwatch/
 | Albert Du Plooy | 601969 | Chatbot — Placeholder |
 | Maqoba Mphelo | 602436 | Architecture Diagram · Risk Assessment |
 | Tanya Richards | 603087 | Documentation Lead · Report |
-| Hendrik Adriaan Honiball | 601476 | ?? |
+| Hendrik Adriaan Honiball | 601476 | Presentation Co-Contributor|
 
 ---
 
