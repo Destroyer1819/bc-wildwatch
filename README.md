@@ -23,7 +23,7 @@ BC WildWatch™ is a real-time campus animal safety reporting web portal built f
 - 🐍 **Incident reporting** — Web form submits directly to SharePoint via Power Automate
 - 📊 **Live Power BI dashboard** — Real-time incident heatmaps and trends
 - 📱 **Power Apps integration** — Full reporting app linked from the portal
-- 🤖 **AI Chatbot** — "AI Model" (replace with API used) chatbot for animal identification and safety advice
+- 🤖 **AI Chatbot** — "AI Model" Gemini chatbot for animal identification and safety advice
 - 📋 **My Reports** — Users can view their own submitted incidents
 - 📷 **Animated login** — Boom gate, security camera, radar scan, particle effects
 - 📱 **Fully responsive** — Mobile, tablet, and desktop supported
@@ -38,7 +38,7 @@ BC WildWatch™ is a real-time campus animal safety reporting web portal built f
 | SharePoint Lists | Data storage |
 | Power BI | Live dashboard |
 | Power Apps | Mobile reporting app |
-| Albert ADD | AI chatbot |
+| Native Chatbot | AI chatbot |
 | GitHub Pages | Free HTTPS hosting |
 
 ---
@@ -83,7 +83,7 @@ bc-wildwatch/
 | Johnathan Robb | 602367 | Power Apps Lead · Team Coordinator |
 | Lethabo Sekoto | 601740 | Power Automate Flows |
 | Chante Fasen | 602353 | Power BI Dashboard |
-| Albert Du Plooy | 601969 | Chatbot — Placeholder |
+| Albert Du Plooy | 601969 | Chatbot — Gemini API |
 | Maqoba Mphelo | 602436 | Architecture Diagram · Risk Assessment |
 | Tanya Richards | 603087 | Documentation Lead · Report |
 | Hendrik Adriaan Honiball | 601476 | Presentation Co-Contributor|
