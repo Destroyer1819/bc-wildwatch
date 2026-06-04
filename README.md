@@ -38,7 +38,7 @@ BC WildWatch™ is a real-time campus animal safety reporting web portal built f
 | SharePoint Lists | Data storage |
 | Power BI | Live dashboard |
 | Power Apps | Mobile reporting app |
-| Native Chatbot | AI chatbot |
+| Native Chatbot | AI chatbot for safety |
 | GitHub Pages | Free HTTPS hosting |
 
 ---
